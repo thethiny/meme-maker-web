@@ -1,0 +1,3 @@
+[submodule "subprojects/bitadao"]
+	path = subprojects/bitadao
+	url = git@github.com:thethiny/bitadao-bear-meme-maker-web.git

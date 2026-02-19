@@ -1,0 +1,5 @@
+{
+  "name": "Meme Maker Studio",
+  "description": "A browser-based meme video generator. Create Bitadao, Video to Piano, and Animalese memes directly in your browser using FFmpeg WASM.",
+  "requestFramePermissions": []
+}
