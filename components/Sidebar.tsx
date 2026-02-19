@@ -4,19 +4,49 @@ import { Video, Music, Mic, Ghost } from 'lucide-react';
 import { MEME_TEMPLATES } from '../constants';
 
 const Sidebar: React.FC = () => {
+  const [open, setOpen] = React.useState(false);
+  // Responsive: 100% width on small screens, toggle button only on small screens
   return (
-    <div className="w-64 h-full bg-zinc-900 border-r border-zinc-800 flex flex-col shrink-0">
+    <>
+      {/* Hamburger menu button for small screens */}
+      <button
+        className="md:hidden fixed top-4 left-4 z-50 bg-indigo-500 text-white rounded-full p-2 shadow-lg focus:outline-none"
+        onClick={() => setOpen((v) => !v)}
+        aria-label="Toggle Sidebar"
+      >
+        {!open && (
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="6" width="16" height="2" rx="1" fill="currentColor" />
+            <rect x="4" y="11" width="16" height="2" rx="1" fill="currentColor" />
+            <rect x="4" y="16" width="16" height="2" rx="1" fill="currentColor" />
+          </svg>
+        )}
+      </button>
+      <div
+        className={`bg-zinc-900 border-r border-zinc-800 flex flex-col shrink-0 h-full transition-all duration-300 z-40 md:static md:h-full md:w-64'
+          ${open ? 'w-full fixed top-0 left-0' : 'w-0 fixed top-0 left-0 pointer-events-none opacity-0'}
+        `}
+        style={{ minWidth: open ? '100vw' : undefined }}
+      >
       <div className="p-6 border-b border-zinc-800 flex items-center gap-2">
         <Ghost className="w-6 h-6 text-indigo-500" />
-        <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+        <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent md:pl-0 pl-12">
           Meme Maker
         </h1>
+        {/* Hide close button on desktop */}
+        <button
+          className="md:hidden ml-auto bg-zinc-800 text-zinc-200 rounded-full p-2"
+          style={{ display: open ? 'block' : 'none' }}
+          onClick={() => setOpen(false)}
+          aria-label="Close Sidebar"
+        >
+          ✕
+        </button>
       </div>
       
       <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
         {MEME_TEMPLATES.map((template) => {
           const Icon = template.id === 'bitadao' ? Video : template.id === 'video-to-piano' ? Music : Mic;
-          
           return (
             <div key={template.id} className="relative group">
               {template.isComingSoon ? (
@@ -37,6 +67,9 @@ const Sidebar: React.FC = () => {
                         : 'border-transparent text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100'
                     }`
                   }
+                  onClick={() => {
+                    if (window.innerWidth < 768) setOpen(false);
+                  }}
                 >
                   <Icon className="w-5 h-5" />
                   <span className="font-medium text-sm">{template.name}</span>
@@ -51,6 +84,7 @@ const Sidebar: React.FC = () => {
         v1.0.0 &bull; Browser Only
       </div>
     </div>
+    </>
   );
 };
 

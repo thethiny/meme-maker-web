@@ -9,7 +9,7 @@ const App: React.FC = () => {
     <Router>
       <div className="flex h-screen w-screen bg-zinc-950 overflow-hidden font-sans">
         <Sidebar />
-        <main className="flex-1 overflow-y-auto relative scroll-smooth">
+  <main className="flex-1 overflow-y-auto relative scroll-smooth pt-16 md:pt-0">
           <Routes>
             <Route path="/" element={<Navigate to="/bitadao" replace />} />
             <Route path="/bitadao" element={<Bitadao />} />
