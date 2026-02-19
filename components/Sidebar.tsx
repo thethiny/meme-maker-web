@@ -23,9 +23,15 @@ const Sidebar: React.FC = () => {
         )}
       </button>
       <div
-        className={`bg-zinc-900 border-r border-zinc-800 flex flex-col shrink-0 h-full transition-all duration-300 z-40 md:static md:h-full md:w-64'
-          ${open ? 'w-full fixed top-0 left-0' : 'w-0 fixed top-0 left-0 pointer-events-none opacity-0'}
-        `}
+        className={
+          `bg-zinc-900 border-r border-zinc-800 flex flex-col shrink-0 h-full transition-all duration-300 z-40 ` +
+          // On md+ screens: always visible, static position, width 64
+          'md:static md:h-full md:w-64 ' +
+          // On mobile: toggle visibility
+          (open
+            ? 'w-full fixed top-0 left-0'
+            : 'w-0 fixed top-0 left-0 pointer-events-none opacity-0 md:w-64 md:pointer-events-auto md:opacity-100')
+        }
         style={{ minWidth: open ? '100vw' : undefined }}
       >
       <div className="p-6 border-b border-zinc-800 flex items-center gap-2">
