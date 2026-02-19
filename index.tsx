@@ -13,3 +13,13 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+// Register the service worker for COEP/COOP headers
+if ('serviceWorker' in navigator) {
+  console.log('Service worker is supported');
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch((err) => {
+      console.error('Service worker registration failed:', err);
+    });
+  });
+}
